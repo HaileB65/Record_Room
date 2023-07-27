@@ -53,7 +53,8 @@ public class SpotifyAPIService {
         return response.body().toString();
     }
 
-    public void albumSearch(){
+    //TODO get album search working
+    public String albumSearch() throws IOException, InterruptedException {
         String url ="https://api.spotify.com/v1/search";
 
         HashMap<String, String> parameters = new HashMap<>();
@@ -64,5 +65,16 @@ public class SpotifyAPIService {
         parameters.put("offset", "5");
         parameters.put("access_token", "BQDys9skXdnQaDbHiA9QZcXUG6NAFHpb2RiAYAkG5XnXzt9s_FInN5Vc2MVaFdJM45U8wqfS9Axr6FGq7h6n2-0DwO7J4eURng3zgYhg1S0FGq9E19I");
 
+        String form = "";
+
+        HttpClient client = HttpClient.newHttpClient();
+
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
+                .POST(HttpRequest.BodyPublishers.ofString(form)).build();
+
+        HttpResponse<?> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.statusCode() + response.body().toString());
+
+        return response.body().toString();
     }
 }
