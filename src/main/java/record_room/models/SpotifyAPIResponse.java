@@ -1,8 +1,8 @@
 package record_room.models;
 
-import java.util.HashMap;
+import java.util.List;
 
 public class SpotifyAPIResponse {
-    HashMap<String, String> hashMap = new HashMap<>();
+    List<Album> albums;
 }
 

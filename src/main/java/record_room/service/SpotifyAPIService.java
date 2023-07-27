@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
+import record_room.models.SpotifyAPIResponse;
 
 import java.io.IOException;
 import java.net.URI;
@@ -50,5 +51,18 @@ public class SpotifyAPIService {
         System.out.println(response.statusCode() + response.body().toString());
 
         return response.body().toString();
+    }
+
+    public void albumSearch(){
+        String url ="https://api.spotify.com/v1/search";
+
+        HashMap<String, String> parameters = new HashMap<>();
+        parameters.put("q", "MilesDavis");
+        parameters.put("type", "album");
+        parameters.put("market", "ES");
+        parameters.put("limit", "10");
+        parameters.put("offset", "5");
+        parameters.put("access_token", "BQDys9skXdnQaDbHiA9QZcXUG6NAFHpb2RiAYAkG5XnXzt9s_FInN5Vc2MVaFdJM45U8wqfS9Axr6FGq7h6n2-0DwO7J4eURng3zgYhg1S0FGq9E19I");
+
     }
 }
