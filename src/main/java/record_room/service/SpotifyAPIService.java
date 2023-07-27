@@ -1,7 +1,8 @@
 package record_room.service;
 
 import jakarta.annotation.PostConstruct;
-import models.SpotifyAPIResponse;
+import org.springframework.stereotype.Service;
+import record_room.models.SpotifyAPIResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -10,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+@Service
 public class SpotifyAPIService {
     @Value("${spotifyAPI_client_id}")
     String spotifyAPI_client_id;
@@ -20,7 +22,6 @@ public class SpotifyAPIService {
     @Autowired
     RestTemplate restTemplate;
 
-    @PostConstruct
     public SpotifyAPIResponse getAccessToken(){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.valueOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE));

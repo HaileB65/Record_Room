@@ -1,4 +1,4 @@
-package models;
+package record_room.models;
 
 import java.util.HashMap;
 
