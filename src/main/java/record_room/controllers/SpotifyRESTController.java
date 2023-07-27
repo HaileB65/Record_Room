@@ -13,14 +13,11 @@ public class SpotifyRESTController {
     SpotifyAPIService spotifyAPIService;
 
     @PostMapping("getToken")
-    public String getAccessToken(){
+    public ResponseEntity<?> getAccessToken(){
         try {
-            return "test";
-            //spotifyAPIService.getAccessToken()
-//            return ResponseEntity.ok();
+            return ResponseEntity.ok(spotifyAPIService.getAccessToken());
         }catch (Exception ex) {
-            return "Test did not work";
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
     }
 
