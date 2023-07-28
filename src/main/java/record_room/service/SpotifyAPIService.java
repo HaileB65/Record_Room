@@ -69,7 +69,7 @@ public class SpotifyAPIService {
 
     //TODO get album search working
     @PostConstruct
-    public String albumSearch() throws IOException, InterruptedException {
+    public SpotifyAPIResponse albumSearch() throws IOException, InterruptedException {
         String accessToken = getAccessToken();
         String url ="https://api.spotify.com/v1/search";
 
@@ -86,12 +86,9 @@ public class SpotifyAPIService {
                 .build()
                 .toUri();
 
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
-                .POST(HttpRequest.BodyPublishers.ofString(form)).build();
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(parameters);
+        ResponseEntity<SpotifyAPIResponse> response = restTemplate.postForEntity(uri, request, SpotifyAPIResponse.class);
 
-        HttpResponse<?> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.statusCode() + response.body().toString());
-
-        return response.body().toString();
+        return response.getBody();
     }
 }
