@@ -6,7 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import record_room.models.SpotifyAlbumSearchResponse;
 import record_room.service.SpotifyAPIService;
+
+import java.io.IOException;
 
 @RestController
 public class SpotifyRESTController {
@@ -23,7 +26,7 @@ public class SpotifyRESTController {
     }
 
     @GetMapping("albumSearch")
-    public ResponseEntity<?> albumSearch(){
+    public ResponseEntity<?> albumSearch() {
         try {
             return ResponseEntity.ok(spotifyAPIService.albumSearch());
         }catch (Exception ex) {

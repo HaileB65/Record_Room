@@ -51,8 +51,7 @@ public class SpotifyAPIService {
     }
 
     //TODO get album search working
-    @PostConstruct
-    public SpotifyAlbumSearchResponse albumSearch() throws IOException, InterruptedException {
+    public Object albumSearch() throws IOException, InterruptedException {
         String q = "MilesDavis";
         String type = "album";
         String market = "ES";
@@ -62,37 +61,39 @@ public class SpotifyAPIService {
 
         String url ="https://api.spotify.com/v1/search";
 
-        String urlTemplate = UriComponentsBuilder.fromHttpUrl(url)
-                .queryParam("q", "{q}")
-                .queryParam("type", "{type}")
-                .queryParam("market", "{market}")
-                .queryParam("limit", "{limit}")
-                .queryParam("offset", "{offset}")
+        String uri = UriComponentsBuilder.fromHttpUrl(url)
+                .queryParam("q", "MilesDavis")
+                .queryParam("type", "album")
+                .queryParam("market", "ES")
+                .queryParam("limit", "10")
+                .queryParam("offset", "5")
+//                .queryParam("access_token", accessToken)
                 .encode()
                 .toUriString();
 
-        Map<String, String> params = new HashMap<>();
-        params.put("q", q);
-        params.put("type", type);
-        params.put("market", market);
-        params.put("limit", limit);
-        params.put("offset", offset);
+//        Map<String, String> params = new HashMap<>();
+//        params.put("q", q);
+//        params.put("type", type);
+//        params.put("market", market);
+//        params.put("limit", limit);
+//        params.put("offset", offset);
 
-        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-        body.add("grant_type", "client_credentials");
+//        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+//        body.add("grant_type", "client_credentials");
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json");
         headers.add("Authorization", "Bearer " + accessToken);
 
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(body, headers);
+        HttpEntity<String> request = new HttpEntity<>(headers);
 
-        ResponseEntity<SpotifyAlbumSearchResponse> response = restTemplate.exchange(
-                urlTemplate,
-                HttpMethod.GET,
-                request,
-                SpotifyAlbumSearchResponse.class,
-                params);
+//        ResponseEntity<SpotifyAlbumSearchResponse> response = restTemplate.exchange(
+//                urlTemplate,
+//                HttpMethod.GET,
+//                request,
+//                SpotifyAlbumSearchResponse.class,
+//                params);
+
+        ResponseEntity<Object> response = restTemplate.exchange(uri, HttpMethod.GET, request, Object.class);
 
         return response.getBody();
     }
