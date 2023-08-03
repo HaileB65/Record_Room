@@ -12,18 +12,11 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import record_room.models.AccessToken;
-import record_room.models.SpotifyAPIResponse;
+import record_room.models.SpotifyAlbumSearchResponse;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.URLEncoder;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.stream.Collectors;
 
 @Service
 public class SpotifyAPIService {
@@ -67,28 +60,28 @@ public class SpotifyAPIService {
         return response.getBody().getAccessToken();
     }
 
-    //TODO get album search working
-    @PostConstruct
-    public SpotifyAPIResponse albumSearch() throws IOException, InterruptedException {
-        String accessToken = getAccessToken();
-        String url ="https://api.spotify.com/v1/search";
-
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-        parameters.add("q", "MilesDavis");
-        parameters.add("type", "album");
-        parameters.add("market", "ES");
-        parameters.add("limit", "10");
-        parameters.add("offset", "5");
-        parameters.add("access_token", accessToken);
-
-        URI uri = UriComponentsBuilder.fromUriString(url)
-                .queryParams(parameters)
-                .build()
-                .toUri();
-
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(parameters);
-        ResponseEntity<SpotifyAPIResponse> response = restTemplate.postForEntity(uri, request, SpotifyAPIResponse.class);
-
-        return response.getBody();
-    }
+//    //TODO get album search working
+//    @PostConstruct
+//    public SpotifyAPIResponse albumSearch() throws IOException, InterruptedException {
+//        String accessToken = getAccessToken();
+//        String url ="https://api.spotify.com/v1/search";
+//
+//        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+//        parameters.add("q", "MilesDavis");
+//        parameters.add("type", "album");
+//        parameters.add("market", "ES");
+//        parameters.add("limit", "10");
+//        parameters.add("offset", "5");
+//        parameters.add("access_token", accessToken);
+//
+//        URI uri = UriComponentsBuilder.fromUriString(url)
+//                .queryParams(parameters)
+//                .build()
+//                .toUri();
+//
+//        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(parameters);
+//        ResponseEntity<SpotifyAlbumSearchResponse> response = restTemplate.getForEntity(uri, SpotifyAlbumSearchResponse.class);
+//
+//        return response.getBody();
+//    }
 }
