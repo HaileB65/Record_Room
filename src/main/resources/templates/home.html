@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
@@ -7,7 +7,19 @@
 <body>
 <div class="container" align="center">
 
-<h1>Record Room</h1>
+    <h1>Record Room</h1>
+
+    <div th:each="item : ${itemList}">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" th:src="${item.images[1].url}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${item.name}">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
 
 </div>
 

@@ -12,11 +12,13 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import record_room.models.AccessToken;
-import record_room.models.Albums;
+import record_room.models.Album;
 import record_room.models.SpotifyAlbumSearchResponse;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.List;
+import java.util.Objects;
 
 @Service
 public class SpotifyAPIService {
