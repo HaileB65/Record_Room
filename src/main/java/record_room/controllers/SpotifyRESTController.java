@@ -6,10 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import record_room.models.SpotifyAlbumSearchResponse;
 import record_room.service.SpotifyAPIService;
-
-import java.io.IOException;
 
 @RestController
 public class SpotifyRESTController {
@@ -17,10 +14,10 @@ public class SpotifyRESTController {
     SpotifyAPIService spotifyAPIService;
 
     @PostMapping("getToken")
-    public ResponseEntity<?> getAccessToken(){
+    public ResponseEntity<?> getAccessToken() {
         try {
             return ResponseEntity.ok(spotifyAPIService.getAccessToken());
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
     }
@@ -29,7 +26,7 @@ public class SpotifyRESTController {
     public ResponseEntity<?> albumSearch() {
         try {
             return ResponseEntity.ok(spotifyAPIService.albumSearch());
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
     }

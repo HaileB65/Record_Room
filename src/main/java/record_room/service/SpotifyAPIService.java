@@ -1,22 +1,22 @@
 package record_room.service;
 
-import jakarta.annotation.PostConstruct;
-import org.springframework.http.*;
-import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import record_room.models.AccessToken;
+import record_room.models.Albums;
 import record_room.models.SpotifyAlbumSearchResponse;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class SpotifyAPIService {
@@ -30,7 +30,7 @@ public class SpotifyAPIService {
     RestTemplate restTemplate;
 
     public String getAccessToken() throws IOException, InterruptedException {
-        String keys = spotifyAPI_client_id + ":" + spotifyAPI_client_secret; //TODO change client keys to variables spotifyAPI_client_id and spotifyAPI_client_secret from above.
+        String keys = spotifyAPI_client_id + ":" + spotifyAPI_client_secret;
         String url = "https://accounts.spotify.com/api/token";
 
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
@@ -45,13 +45,10 @@ public class SpotifyAPIService {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(body, headers);
 
         ResponseEntity<AccessToken> response = restTemplate.postForEntity(url, request, AccessToken.class);
-        //TODO check for status code and body isn't null
-        // use try/catch or if statement to avoid errors
         return response.getBody().getAccessToken();
     }
 
-    //TODO get album search working
-    public Object albumSearch() throws IOException, InterruptedException {
+    public SpotifyAlbumSearchResponse albumSearch() throws IOException, InterruptedException {
         String q = "MilesDavis";
         String type = "album";
         String market = "ES";
@@ -59,7 +56,7 @@ public class SpotifyAPIService {
         String offset = "5";
         String accessToken = getAccessToken();
 
-        String url ="https://api.spotify.com/v1/search";
+        String url = "https://api.spotify.com/v1/search";
 
         String uri = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("q", "MilesDavis")
@@ -67,33 +64,15 @@ public class SpotifyAPIService {
                 .queryParam("market", "ES")
                 .queryParam("limit", "10")
                 .queryParam("offset", "5")
-//                .queryParam("access_token", accessToken)
                 .encode()
                 .toUriString();
-
-//        Map<String, String> params = new HashMap<>();
-//        params.put("q", q);
-//        params.put("type", type);
-//        params.put("market", market);
-//        params.put("limit", limit);
-//        params.put("offset", offset);
-
-//        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-//        body.add("grant_type", "client_credentials");
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + accessToken);
 
         HttpEntity<String> request = new HttpEntity<>(headers);
 
-//        ResponseEntity<SpotifyAlbumSearchResponse> response = restTemplate.exchange(
-//                urlTemplate,
-//                HttpMethod.GET,
-//                request,
-//                SpotifyAlbumSearchResponse.class,
-//                params);
-
-        ResponseEntity<Object> response = restTemplate.exchange(uri, HttpMethod.GET, request, Object.class);
+        ResponseEntity<SpotifyAlbumSearchResponse> response = restTemplate.exchange(uri, HttpMethod.GET, request, SpotifyAlbumSearchResponse.class);
 
         return response.getBody();
     }

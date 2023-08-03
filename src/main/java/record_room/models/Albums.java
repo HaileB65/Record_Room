@@ -1,7 +1,11 @@
 package record_room.models;
 
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Albums {
-    List<Album> items;
+    String href;
+    Items[] items;
 }
