@@ -31,7 +31,7 @@ public class SpotifyAPIService {
     @Autowired
     RestTemplate restTemplate;
 
-    public String getAccessToken() throws IOException, InterruptedException {
+    public String getAccessToken() {
         String keys = spotifyAPI_client_id + ":" + spotifyAPI_client_secret;
         String url = "https://accounts.spotify.com/api/token";
 
@@ -47,21 +47,17 @@ public class SpotifyAPIService {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(body, headers);
 
         ResponseEntity<AccessToken> response = restTemplate.postForEntity(url, request, AccessToken.class);
+
         return response.getBody().getAccessToken();
     }
 
-    public SpotifyAlbumSearchResponse albumSearch() throws IOException, InterruptedException {
-        String q = "MilesDavis";
-        String type = "album";
-        String market = "ES";
-        String limit = "10";
-        String offset = "5";
+    public SpotifyAlbumSearchResponse albumSearch(String album) {
         String accessToken = getAccessToken();
 
         String url = "https://api.spotify.com/v1/search";
 
         String uri = UriComponentsBuilder.fromHttpUrl(url)
-                .queryParam("q", "MilesDavis")
+                .queryParam("q", album)
                 .queryParam("type", "album")
                 .queryParam("market", "ES")
                 .queryParam("limit", "10")

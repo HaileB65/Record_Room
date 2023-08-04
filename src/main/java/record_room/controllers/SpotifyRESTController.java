@@ -22,13 +22,13 @@ public class SpotifyRESTController {
         }
     }
 
-    @GetMapping("albumSearch")
-    public ResponseEntity<?> albumSearch() {
-        try {
-            return ResponseEntity.ok(spotifyAPIService.albumSearch());
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }
-    }
+//    @GetMapping("albumSearch")
+//    public ResponseEntity<?> albumSearch() {
+//        try {
+//            return ResponseEntity.ok(spotifyAPIService.albumSearch());
+//        } catch (Exception ex) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+//        }
+//    }
 
 }
