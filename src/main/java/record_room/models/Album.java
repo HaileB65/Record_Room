@@ -13,6 +13,7 @@ public class Album {
     @JsonProperty("external_urls")
     ExternalUrls externalUrls;
     List<Image> images;
+    String href;
     String name;
     @JsonProperty("release_date")
     String releaseDate;
