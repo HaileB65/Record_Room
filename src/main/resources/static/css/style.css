@@ -9,5 +9,10 @@ body {
     background-size: cover;
 }
 
+.searchBox {
+     background-color: white;
+}
 
-
+.title {
+    background-color: white;
+}
