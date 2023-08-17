@@ -2,7 +2,7 @@
 
 # Description:
 
-Record Room is a simple application that allows users to search for their favorite album and get a list of found albums in return. This application uses Spotify's Web API to collect the music data and Docker to allow easy transport and setup. This application can be downloaded from github and easily run in a Docker Container.
+Record Room is a simple application that allows users to search for their favorite album and get a list of found albums in return. This application uses Spotify's Web API to collect music data and Docker to allow easy transport and setup. This application can be downloaded from github and easily run in a Docker Container.
 
 # Pictures:
 
