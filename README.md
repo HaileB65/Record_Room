@@ -10,4 +10,4 @@ Record Room is a simple application that allows users to search for their favori
 
 # Authors and acknowledgement:
 
-Developed by Haile Brendon with guidance from Ryan Desmond and Jared Larsen from CodingNomads.
+Developed by Haile Brendon with guidance from Jared Larsen from CodingNomads.
