@@ -10,14 +10,17 @@ import java.util.List;
 @Setter
 public class Album {
     List<Artist> artists;
-    @JsonProperty("external_urls")
-    ExternalUrls externalUrls;
     List<Image> images;
     String href;
     String name;
+    String type;
+
+    @JsonProperty("external_urls")
+    ExternalUrls externalUrls;
+
     @JsonProperty("release_date")
     String releaseDate;
+
     @JsonProperty("total_tracks")
     int totalTracks;
-    String type;
 }
